@@ -203,26 +203,26 @@
 
 let currentInput = ''; 
 
-
 function recuperation(value) {
     currentInput += value; 
     document.getElementById('affichage').value = currentInput;
 }
-
 
 function clearaffichage() {
     currentInput = '';
     document.getElementById('affichage').value = '';
 }
 
-
 function calcul() {
-    try {
-        currentInput = eval(currentInput).toString();
-        document.getElementById('affichage').value = currentInput;
-    } catch (error) {
-        document.getElementById('affichage').value = 'Erreur'; 
-        currentInput = ''; 
+       
+    if (currentInput) {
+        try {
+            let result = new Function('return ' + currentInput)();
+            document.getElementById('affichage').value = result;
+            currentInput = result; 
+        } catch (error) {
+            document.getElementById('affichage').value = 'Erreur'; 
+            currentInput = ''; 
+        }
     }
 }
-
